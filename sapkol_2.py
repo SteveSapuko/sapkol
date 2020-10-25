@@ -1,26 +1,37 @@
 import sys
-import re
+f = open('code.txt', 'r')
+text = f.read()
+split = text.split("\n")
 
-program = open("program.txt", "r")
-
-proLst = program.read().lower().split("\n")
-
-
+f.close()
 
 
+def main(lines):
+    pass
 
-def errorPrint(type): #which error to print
-    errorDict = {1:"Invalid file, not a Sapkol file.",
-    2:"invalid command run.",
-    3:"Invalid variable called.",
-    4:"Invalid function called."}
 
-    print("Error " + str(type) + ": " + errorDict[type])
+class Interpreter:
+    def __init__(self):
+        self.Command_DataBase = ["print", "int", "str", "bool", "flt"]
+        # Array of usable commands
 
-def interpreter():
-    if proLst[0] != "$sapkol":
-        errorPrint(1)
-        sys.exit()
-interpreter()
+    def Code_Preparer(self):
+        """
+        :returns: Clean code, readable list.
+        """
+        pass
 
-program.close()
+    def Tokenizer(self):
+        """
+        :return: Finds the argument(s) for the command.
+        """
+        pass
+
+    def String_Analyzer(self):
+        """
+        :return: Returns clean string to print.
+        """
+
+
+if __name__ == '__main__':
+    main(split)
