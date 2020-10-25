@@ -1,7 +1,7 @@
 import sys
 f = open('code.txt', 'r')
-text = f.read()
-split = text.split("\n")
+text = f.read().split("\n")
+
 
 f.close()
 
@@ -12,7 +12,7 @@ def main(lines):
 
 class Interpreter:
     def __init__(self):
-        self.Command_DataBase = ["print", "int", "str", "bool", "flt"]
+        self.Command_DataBase = ["print", "var", "func", "lst", "#", "change"]
         # Array of usable commands
 
     def Code_Preparer(self):
@@ -34,4 +34,4 @@ class Interpreter:
 
 
 if __name__ == '__main__':
-    main(split)
+    main(text)
