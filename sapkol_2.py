@@ -1,5 +1,5 @@
 import sys
-f = open('code.txt', 'r')
+f = open('program.txt', 'r')
 text = f.read().split("\n")
 
 
@@ -7,30 +7,76 @@ f.close()
 
 
 def main(lines):
-    pass
+    Code = Interpreter(Code_Preparer(lines), lines)
+
+
+def Code_Preparer(lines):
+    """
+    :returns: Clean code, readable list.
+    """
+    blank_lines = lines.count('')
+    # Number of blank lines so we can remove it
+
+    for y in range(blank_lines):
+        lines.remove('')
+
+    Code_Matrix = []
+    for x in lines:
+        Code_Matrix.append(x.split(' '))
+
+    return Code_Matrix
 
 
 class Interpreter:
-    def __init__(self):
+    def __init__(self, matrix, lines):
         self.Command_DataBase = ["print", "var", "func", "lst", "#", "change"]
-        # Array of usable commands
+        # list of acceptable commands
+        self.Number_of_lines = len(lines)
+        # number of lines
+        self.matrix = matrix
+        # matrix of all the lines, each lines is split by " ".
+        self.lines = lines
+        # lines of all the code.
 
-    def Code_Preparer(self):
-        """
-        :returns: Clean code, readable list.
-        """
-        pass
+    def Error(self, reason):
+        print(reason)
+        sys.exit()
 
-    def Tokenizer(self):
+    def Tokenizer(self, sep1, sep2, line, which):
         """
         :return: Finds the argument(s) for the command.
         """
-        pass
+        possible = []
+
+        write = ''
+        is_writing = False
+
+
+        counter = line.count(sep1) + line.count(sep2)
+        if counter % 2 == 1 or counter == 0:
+            self.Error("Invalid use of separators.")
+
+
+        for i in line:
+            if i == sep1 and not is_writing:
+                is_writing = True
+
+            elif i == sep2:
+                is_writing = False
+                possible.append(write)
+                write = ''
+
+            elif is_writing:
+                write += i
+
+        return possible[which]
+
 
     def String_Analyzer(self):
         """
         :return: Returns clean string to print.
         """
+        pass
 
 
 if __name__ == '__main__':
