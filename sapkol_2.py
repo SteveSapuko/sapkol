@@ -10,6 +10,7 @@ def main(lines):
     Code = Interpreter(Code_Preparer(lines), lines)
 
 
+
 def Code_Preparer(lines):
     """
     :returns: Clean code, readable list.
@@ -23,6 +24,9 @@ def Code_Preparer(lines):
     Code_Matrix = []
     for x in lines:
         Code_Matrix.append(x.split(' '))
+
+    if lines[0] != "$sapkol":
+        Interpreter.Error(1, 1)
 
     return Code_Matrix
 
@@ -38,8 +42,14 @@ class Interpreter:
         self.lines = lines
         # lines of all the code.
 
-    def Error(self, reason):
-        print(reason)
+    def Error(self, errCode, errPlace = "*not specified*"):
+        errDict = {1:"Invalid file, not a Sapkol file",
+        2:"Invalid command run",
+        3:"Invalid variable called",
+        4:"Invalid function called",
+        5:"Invalid parameters"}
+
+        print("Error code " + str(errCode) + ": " + errDict[errCode] + "; at line: " + errPlace)
         sys.exit()
 
     def Tokenizer(self, sep1, sep2, line, which):
@@ -54,7 +64,7 @@ class Interpreter:
 
         counter = line.count(sep1) + line.count(sep2)
         if counter % 2 == 1 or counter == 0:
-            self.Error("Invalid use of separators.")
+            self.Error(5)
 
 
         for i in line:
@@ -77,6 +87,8 @@ class Interpreter:
         :return: Returns clean string to print.
         """
         pass
+
+
 
 
 if __name__ == '__main__':

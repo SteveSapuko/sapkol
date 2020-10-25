@@ -3,7 +3,4 @@ $sapkol
 var str text = "Hello, this is the first Sapkol program ever written."
 
 
-
 print text
-
-print ""hrth"
